@@ -149,14 +149,14 @@ section {
 .hero {
     min-height: 100vh;
 
+    position: relative;
+    overflow: hidden;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
     text-align: center;
-
-    position: relative;
-    overflow: hidden;
 
     background:
         linear-gradient(
@@ -165,6 +165,31 @@ section {
             #253f72 45%,
             #8fa7c9 100%
         );
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -1px;
+
+    width: 100%;
+    height: 220px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(143, 167, 201, 0),
+            rgba(143, 167, 201, 0.35) 35%,
+            rgba(143, 167, 201, 0.75) 65%,
+            #8fa7c9 100%
+        );
+
+    pointer-events: none;
+
+    z-index: 1;
 }
 
 .hero::before {
@@ -289,6 +314,8 @@ section {
     text-align: center;
 
     opacity: 0.55;
+
+    z-index: 3;
 }
 
 .scroll-indicator span {
@@ -325,23 +352,68 @@ section {
 ===================================================== */
 
 .about {
-    background: #10182d;
+    position: relative;
+
+    background:
+        linear-gradient(
+            180deg,
+            #8fa7c9 0%,
+            #7189ad 18%,
+            #425779 45%,
+            #10182d 100%
+        );
 }
+
+/* =====================================================
+   ABOUT SECTION
+===================================================== */
 
 .about-content {
     width: min(1100px, 100%);
     margin: auto;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1.1fr;
 
-    gap: 80px;
+    gap: 100px;
 
     align-items: center;
 }
 
+
+/* ==================== IMAGE ==================== */
+
 .about-image {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    margin: auto;
+}
+
+.image-frame {
+    position: relative;
+
     aspect-ratio: 4 / 5;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    background: rgba(255, 255, 255, 0.05);
+
+    transform: rotate(-2deg);
+
+    transition:
+        transform 0.5s ease,
+        background 0.5s ease;
+}
+
+.image-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .image-placeholder {
@@ -352,26 +424,83 @@ section {
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.02)
+        );
 
-    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+/* ==================== TEXT ==================== */
+
+.about-text {
+    max-width: 600px;
+}
+
+.about-intro {
+    margin-bottom: 30px;
+
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+
+    line-height: 1.3;
+
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.about-text > p:not(.about-intro) {
+    margin-bottom: 40px;
+
+    max-width: 520px;
+
+    color: rgba(255, 255, 255, 0.6);
+
+    line-height: 1.9;
+}
+
+
+/* ==================== DETAILS ==================== */
+
+.about-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 20px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.detail-item span {
+    font-size: 0.7rem;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
 
     color: rgba(255, 255, 255, 0.4);
 }
 
-.about-text h3 {
-    margin-bottom: 25px;
+.detail-item strong {
+    font-size: 0.9rem;
 
-    font-size: 2rem;
     font-weight: 400;
-}
 
-.about-text p {
-    margin-bottom: 20px;
-
-    color: rgba(255, 255, 255, 0.65);
-
-    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 
@@ -735,6 +864,14 @@ footer {
         gap: 15px;
     }
 
+        .about-details {
+        grid-template-columns: 1fr;
+    }
+
+    .about-intro {
+        font-size: 1.5rem;
+    }
+
 }
 
 /* =====================================================
@@ -921,4 +1058,38 @@ footer {
     to {
         left: 110%;
     }
+}
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-1 {
+    transition-delay: 0s;
+}
+
+.reveal-2 {
+    transition-delay: 0.15s;
+}
+
+.reveal-3 {
+    transition-delay: 0.3s;
+}
+
+.reveal-4 {
+    transition-delay: 0.45s;
 }
